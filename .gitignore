@@ -1,5 +1,6 @@
 .husky
 .tsbuildinfo
+.env
 dist
 node_modules
 pnpm-lock.yaml
