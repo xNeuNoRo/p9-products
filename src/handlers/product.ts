@@ -1,34 +1,27 @@
-import { Request, Response } from "express";
-import { check, validationResult } from "express-validator";
+import type { Request, Response } from "express";
+
 import Product from "../models/Product.model";
+import type { ProductCreationType, ProductUpdateType } from "../types";
 
 export const getProducts = async (req: Request, res: Response) => {
-  try {
-    const products = await Product.findAll({
-      order: [["price", "ASC"]],
-      // Para excluir
-      //  attributes: {
-      //    exclude: ["createdAt", "updatedAt", "availability"],
-      //  },
-    });
-    res.status(200).json({ data: products });
-  } catch (err) {
-    console.log(err);
-  }
+  const products = await Product.findAll({
+    order: [["price", "ASC"]],
+    // Para excluir
+    //  attributes: {
+    //    exclude: ["createdAt", "updatedAt", "availability"],
+    //  },
+  });
+  res.status(200).json({ data: products });
 };
 
 export const getProductById = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findByPk(id);
-    if (!product)
-      return res
-        .status(404)
-        .json({ error: `El producto con el id ${id} no existe` });
-    res.status(200).json({ data: product });
-  } catch (err) {
-    console.log(err);
-  }
+  const { id } = req.params;
+  const product = await Product.findByPk(id);
+  if (!product)
+    return res
+      .status(404)
+      .json({ error: `El producto con el id ${id} no existe` });
+  res.status(200).json({ data: product });
 };
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -54,12 +47,8 @@ export const createProduct = async (req: Request, res: Response) => {
   // const savedProduct = await product.save();
 
   // Metodo 2: Creandolo y guardandolo directamente con el metodo de sequelize
-  try {
-    const product = await Product.create(req.body);
-    res.status(200).json({ data: product });
-  } catch (err) {
-    console.log(err);
-  }
+  const product = await Product.create(req.body as ProductCreationType);
+  res.status(201).json({ data: product });
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
@@ -71,7 +60,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       .json({ error: `El producto con el id ${id} no existe` });
 
   // Actualizar todo - PUT
-  await product.update(req.body);
+  await product.update(req.body as ProductUpdateType);
   await product.save();
   res.status(200).json({
     data: product,
@@ -87,7 +76,7 @@ export const updateAvailability = async (req: Request, res: Response) => {
       .json({ error: `El producto con el id ${id} no existe` });
 
   // Modificar un solo campo especifico - PATCH
-  product.availability = !product.dataValues.availability;
+  product.availability = !product.availability;
   await product.save();
   res.status(200).json({
     data: product,

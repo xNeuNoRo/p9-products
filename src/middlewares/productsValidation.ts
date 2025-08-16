@@ -15,9 +15,9 @@ export const createValidation = [
 
 export const idValidation = [param("id").isInt().withMessage("ID no valido")];
 
-// export const updateValidation = [
-//   ...createValidation,
-//   check("availability")
-//     .isBoolean()
-//     .withMessage("La disponibilidad debe ser un booleano valido"),
-// ];
+export const updateValidation = [
+  ...createValidation,
+  check("availability")
+    .isBoolean()
+    .withMessage("La disponibilidad debe ser un booleano valido"),
+];

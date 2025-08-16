@@ -4,6 +4,8 @@
     "target": "esnext",
     "module": "nodenext",
     "moduleResolution": "NodeNext",
+    // Para que jest quiera funcionar
+    "isolatedModules": true,
     // Otros parametros
     "declaration": true,
     "esModuleInterop": true,

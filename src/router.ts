@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { param } from "express-validator";
+
 import {
   createProduct,
   deleteProduct,
@@ -7,15 +7,17 @@ import {
   getProducts,
   updateAvailability,
   updateProduct,
-} from "./handlers/products";
+} from "./handlers/product";
 import { handleInputErrors } from "./middlewares/handleInputErrors";
 import {
   idValidation,
   createValidation,
+  updateValidation,
 } from "./middlewares/productsValidation";
 
 const router: Router = Router();
 
+// Routing
 router.get("/", getProducts);
 // :id automaticamente crea un param con el nombre "id"
 // Que capturara el valor ingresado despues de /api/products/AQUI VENDRIA EL ID
@@ -40,7 +42,13 @@ router.post(
   createProduct,
 );
 
-router.put("/:id", idValidation, handleInputErrors, updateProduct);
+router.put(
+  "/:id",
+  idValidation,
+  updateValidation,
+  handleInputErrors,
+  updateProduct,
+);
 
 router.patch("/:id", idValidation, handleInputErrors, updateAvailability);
 

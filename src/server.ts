@@ -1,21 +1,24 @@
-import type { Express } from "express";
 import colors from "colors";
-import express from "express";
-import productsRouter from "./router";
-import db from "./config/db";
+import express, { type Express } from "express";
 
-async function connectDB() {
+import db from "./config/db";
+import productsRouter from "./router";
+
+export async function connectDB() {
   try {
     await db.authenticate();
-    db.sync(); // Va a sincronizar cualquier cambio de la db
-    console.log(colors.green.bold("Conexion exitosa a la DB"));
+    void db.sync(); // Va a sincronizar cualquier cambio de la db
+    // console.log(colors.green.bold("Conexion exitosa a la DB"));
   } catch (err) {
-    console.log(colors.red.bold("Hubo un error al conectar a la DB"));
-    console.log(err);
+    console.log(
+      colors.red.bold(
+        `Hubo un error al conectar a la DB:\n${err instanceof Error && err.message}`,
+      ),
+    );
   }
 }
 
-connectDB();
+void connectDB();
 
 // Instancia de express
 const server: Express = express();
@@ -30,5 +33,12 @@ server.use(express.json());
 // Y tambien si cambio cada una de las rutas a por ej: /getinfo
 // seria /api/productos/getinfo para esa ruta especifica
 server.use("/api/products", productsRouter);
+
+// Para testear
+server.use("/api", (req, res) => {
+  res.status(200).json({
+    success: true,
+  });
+});
 
 export default server;
