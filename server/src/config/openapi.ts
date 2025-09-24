@@ -10,8 +10,12 @@ export default async function buildOasConfig() {
     description: "API Docs for Products",
   });
 
-  // Buscar todas las rutas de cada archivo .docs.ts
-  const files = await fg("src/**/*.docs.ts", { absolute: true });
+  const isProd = process.env.NODE_ENV === "production";
+
+  // Buscar todas las rutas de cada archivo .docs
+  const files = await fg(`src/**/*.docs.${isProd ? "js" : "ts"}`, {
+    absolute: true,
+  });
 
   // Iterar por cada ruta
   for (const file of files) {
