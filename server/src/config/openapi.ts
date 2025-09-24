@@ -1,5 +1,6 @@
 import { OpenApiBuilder } from "openapi3-ts/oas31";
 import fg from "fast-glob";
+import path from "path";
 
 export default async function buildOasConfig() {
   const builder = OpenApiBuilder.create();
@@ -11,16 +12,17 @@ export default async function buildOasConfig() {
   });
 
   const isProd = process.env.NODE_ENV === "production";
+  const docsPattern = isProd ? "**/*.docs.js" : "src/**/*.docs.ts";
 
   // Buscar todas las rutas de cada archivo .docs
-  const files = await fg(`src/**/*.docs.${isProd ? "js" : "ts"}`, {
+  const files = await fg(docsPattern, {
     absolute: true,
   });
 
   // Iterar por cada ruta
   for (const file of files) {
-    const module = await import(file);
-    const register = module.default;
+    const module = await import(path.resolve(file));
+    const register = module.default?.default ?? module.default ?? module;
     register(builder);
   }
 
