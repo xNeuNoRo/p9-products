@@ -1,4 +1,4 @@
-# p9-products
+# Proyecto 9 - CRUD de Productos
 
 [![Estado](https://img.shields.io/badge/status-completed-brightgreen)](https://github.com/xNeuNoRo/p9-products)
 [![Vite](https://img.shields.io/badge/bundler-vite-blue)](https://vitejs.dev/)
