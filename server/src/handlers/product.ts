@@ -1,11 +1,10 @@
-import type { Request, Response } from "express";
-
+import { application, type Request, type Response } from "express";
 import Product from "../models/Product.model";
 import type { ProductCreationType, ProductUpdateType } from "../types";
 
 export const getProducts = async (req: Request, res: Response) => {
   const products = await Product.findAll({
-    order: [["price", "ASC"]],
+    order: [["id", "ASC"]],
     // Para excluir
     //  attributes: {
     //    exclude: ["createdAt", "updatedAt", "availability"],

@@ -1,0 +1,24 @@
+
+			{
+  				"folders": [
+    						{
+      							"name": "root",
+      							"path": "."
+    						},
+    						{
+      							"path": "client"
+    						},
+    						{
+      							"path": "server"
+    						}
+  					],
+  				"settings": {
+    					"jest.disabledWorkspaceFolders": ["root", "client"],
+    					"files.exclude": {
+      						"**/.git": true,
+      						"**/node_modules": true,
+      						"**/*.code-workspace": true
+    					}
+  				}
+			}
+			

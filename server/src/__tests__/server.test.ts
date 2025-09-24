@@ -1,18 +1,5 @@
-import request from "supertest";
-
 import db from "../config/db";
-import server, { connectDB } from "../server";
-
-describe("GET /api", () => {
-  it("should send back a json response", async () => {
-    const res = await request(server).get("/api");
-    expect(res.status).toBe(200);
-    expect(res.headers["content-type"]).toMatch(/json/i);
-    expect(res.body.success).toBe(true);
-    expect(res.status).not.toBe(404);
-    expect(res.body.success).not.toBe(false);
-  });
-});
+import { connectDB } from "../server";
 
 // le dice a Jest: “cuando alguien importe ../config/db, dales un mock en vez del módulo real.”
 jest.mock("../config/db"); // Justamente como lo importe

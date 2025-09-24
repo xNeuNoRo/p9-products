@@ -19,6 +19,7 @@ const router: Router = Router();
 
 // Routing
 router.get("/", getProducts);
+
 // :id automaticamente crea un param con el nombre "id"
 // Que capturara el valor ingresado despues de /api/products/AQUI VENDRIA EL ID
 router.get("/:id", idValidation, handleInputErrors, getProductById);
