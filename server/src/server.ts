@@ -2,7 +2,7 @@ import colors from "colors";
 import swaggerUi from "swagger-ui-express";
 import morgan from "morgan";
 import setupOas from "./config/openapi";
-import express, { type Express } from "express";
+import express, { Request, Response, type Express } from "express";
 import cors, { type CorsOptions } from "cors";
 
 import db from "./config/db";
@@ -27,6 +27,10 @@ void connectDB();
 // Instancia de express
 const server: Express = express();
 const isTesting = process.env.NODE_ENV === "test";
+
+server.get("/test", (_req: Request, res: Response) => {
+  res.status(200).json({ status: "OK" });
+});
 
 // Permitir conexiones
 const corsOptions: CorsOptions = {
