@@ -17,7 +17,7 @@
 
 ## Demo
 
-[`https://github.com/xNeuNoRo/p9-products`](https://github.com/xNeuNoRo/p9-products)
+[`https://p9-products.vercel.app`](https://p9-products.vercel.app)
 
 ---
 
